@@ -1,5 +1,5 @@
-server-nest/environment/development.env
-server-nest/environment/production.env
-server-nest/environment/test.env
-server-nest/environment/provision.env
 server-nest/.env
+server-nest/environments/development.env
+server-nest/environments/production.env
+server-nest/environments/provision.env
+server-nest/environments/test.env
