@@ -18,7 +18,7 @@ describe('JwtStrategy', () => {
 
   it('should return user object', async () => {
 
-    const mock = {userid: '1', username: 'mohsaeeed'};
+    const mock = {userId: '1', username: 'mohsaeeed'};
     const mockUser = {
       sub: '1',
       username: 'mohsaeeed',
