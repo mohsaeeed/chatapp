@@ -1,4 +1,21 @@
-before_script: cd server-nest
 language: node_js
-node_js:
-  - "12"
+
+cache:
+directories:
+    - "node_modules"
+
+before_script: cd server-nest
+before_install: 
+  - npm i -g npm@latest
+
+install:
+  - npm ci
+  - npm run build:dev
+
+jobs:
+include:
+    - state: "Test"
+  name: "Unit Test Node 12"
+  script: npm test
+  node_js: 12
+  after_success: npm run coverage
