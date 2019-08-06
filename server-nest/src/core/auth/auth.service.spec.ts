@@ -1,3 +1,4 @@
+import { AppModule } from './../../app.module';
 import { JwtService, JwtModule } from '@nestjs/jwt';
 import { UsersModule } from './../../modules/users/users.module';
 import { Test, TestingModule } from '@nestjs/testing';
@@ -7,21 +8,37 @@ import { AuthService } from './auth.service';
 import { LocalStrategy } from './local.strategy';
 import { jwtConstants } from './constants';
 import { PassportModule } from '@nestjs/passport';
+import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 
 describe('AuthService', () => {
   let service: AuthService;
   let jwt: JwtService;
+  jest.mock('./../../modules/users/schemas/user.schems.ts');
 
   beforeEach(async () => {
+    const userModel = {
+      username: 'mohsaeeed',
+      password: '12344321',
+      name: {
+        first: 'Mohammed',
+        last: 'Abdelrahman',
+      },
+      email: 'moh.saeeed@gmail.com',
+    };
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         UsersModule,
         PassportModule,
+        AppModule,
         JwtModule.register({
         secret: jwtConstants.secret,
         signOptions: { expiresIn: '60s' },
       })],
-      providers: [AuthService, UsersService],
+      providers: [AuthService, UsersService,
+        {
+          provide: getModelToken('User'),
+          useValue: userModel,
+        }],
     }).compile();
 
     service = module.get<AuthService>(AuthService);
