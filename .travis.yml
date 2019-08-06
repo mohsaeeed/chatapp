@@ -8,6 +8,7 @@ before_install:
   - npm i -g npm@latest
 
 install:
+  - npm install
   - npm run build
 
 jobs:
