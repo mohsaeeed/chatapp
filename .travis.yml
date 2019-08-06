@@ -8,6 +8,7 @@ cache:
 before_script: 
   - cd server-nest
 before_install: 
+  - cd server-nest
   - npm i -g npm@latest
 
 install:
