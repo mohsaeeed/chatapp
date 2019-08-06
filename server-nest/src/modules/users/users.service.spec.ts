@@ -5,6 +5,7 @@ import { getModelToken } from '@nestjs/mongoose';
 
 describe('UsersService', () => {
   let service: UsersService;
+  jest.mock('./schemas/user.schems.ts');
 
   beforeEach(async () => {
     const userModel = {
@@ -33,14 +34,6 @@ describe('UsersService', () => {
 
   it('should return undefind for calling findOne', () => {
     expect(service.findOne).toBeTruthy();
-  });
-
-  it('should return user object matching the passed username', async () => {
-    const username = 'mohsaeeed';
-    const user = await service.findOne(username);
-
-    expect(user.username).toEqual(username);
-
   });
 
 });
