@@ -10,8 +10,7 @@ before_install:
   - npm i -g npm@latest
 
 install:
-  - npm ci
-  - npm run build:dev
+  - npm run start:dev
 
 jobs:
   include:
