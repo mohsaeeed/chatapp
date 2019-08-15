@@ -13,8 +13,8 @@ import * as fs from 'fs';
 
 describe('AuthService', () => {
   let service: AuthService;
-  /* let jwt: JwtService;
-  jest.mock('./../../modules/users/schemas/user.schems.ts');
+  let jwt: JwtService;
+  /*jest.mock('./../../modules/users/schemas/user.schems.ts');
 
   jest.mock('fs'); */
 
@@ -45,7 +45,7 @@ describe('AuthService', () => {
     }).compile(); // */
 
     service = module.get<AuthService>(AuthService);
-    //jwt = module.get<JwtService>(JwtService);
+    jwt = module.get<JwtService>(JwtService);
   });
 
   it('should be defined', () => {
