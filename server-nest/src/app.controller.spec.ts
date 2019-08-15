@@ -12,6 +12,11 @@ import { PassportModule } from '@nestjs/passport';
 import { jwtConstants } from './core/auth/constants';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
 import { UserSchema } from './modules/users/schemas/user.schems';
+import * as fs from 'fs';
+
+jest.mock('fs', () => ({
+  readFileSync: () => 'test.env',
+}));
 
 describe('AppController', () => {
   let appController: AppController;
