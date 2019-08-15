@@ -30,18 +30,18 @@ describe('AuthService', () => {
     };*/
     const module: TestingModule = await Test.createTestingModule({
       imports: [
-        UsersModule,
-        PassportModule,
-        AppModule,
-        JwtModule.register({
+       //  UsersModule,
+        // PassportModule,
+        // AppModule,
+        /*JwtModule.register({
         secret: jwtConstants.secret,
         signOptions: { expiresIn: '60s' },
-      })],
-      providers: [AuthService, UsersService,
-        {
+      })*/],
+      providers: [AuthService, /*UsersService,
+        /*{
           provide: getModelToken('User'),
           useValue: userModel,
-        }],
+        }*/],
     }).compile(); // */
 
     service = module.get<AuthService>(AuthService);
