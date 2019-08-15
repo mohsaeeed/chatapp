@@ -15,6 +15,8 @@ const MOCK_FILE = {
   test: '',
 };
 
+const OLD_ENV = process.env;
+
 jest.mock('fs', () => ({
   readFileSync: () => 'test.env',
 }));
@@ -27,6 +29,10 @@ describe('AuthService', () => {
   let jwt: JwtService;
 
   beforeEach(async () => {
+
+    jest.resetModules();
+    process.env = {...OLD_ENV};
+    delete process.env.NODE_ENV;
 
     const userModel = {
       username: 'mohsaeeed',
@@ -57,19 +63,31 @@ describe('AuthService', () => {
     jwt = module.get<JwtService>(JwtService);
   });
 
+  afterEach(() => {
+    process.env = OLD_ENV;
+  });
+
   it('should be defined', () => {
+    process.env.NODE_ENV = 'test';
+    process.env.API_AUTH_ENABLED = 'true';
     expect(service).toBeDefined();
   });
 
   it('validateUser should be defind', () => {
+    process.env.NODE_ENV = 'test';
+    process.env.API_AUTH_ENABLED = 'true';
     expect(service.validateUser).toBeDefined();
   });
 
   it('should return a null value for non-valid users', async () => {
+    process.env.NODE_ENV = 'test';
+    process.env.API_AUTH_ENABLED = 'true';
     expect(await service.validateUser('mohsaeeed', '12345678')).toBeNull();
   });
 
   it('should return a user object for valid users', async () => {
+    process.env.NODE_ENV = 'test';
+    process.env.API_AUTH_ENABLED = 'true';
 
     const mockUser = {
       username: 'mohsaeeed',
@@ -87,10 +105,14 @@ describe('AuthService', () => {
   });
 
   it('should defind login', async () => {
+    process.env.NODE_ENV = 'test';
+    process.env.API_AUTH_ENABLED = 'true';
     expect(service.login).toBeTruthy();
   });
 
   it('should return a token object', async () => {
+    process.env.NODE_ENV = 'test';
+    process.env.API_AUTH_ENABLED = 'true';
     const user = { username: 'mohsaeeed', userid: '1' };
     const token = await service.login(user);
     expect(token).toHaveProperty('access_token');

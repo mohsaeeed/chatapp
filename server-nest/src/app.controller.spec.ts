@@ -18,6 +18,9 @@ jest.mock('fs', () => ({
   readFileSync: () => 'test.env',
 }));
 
+const OLD_ENV = process.env;
+process.env = { API_AUTH_ENABLED: 'true' };
+
 describe('AppController', () => {
   let appController: AppController;
   let jwt: JwtService;
@@ -25,6 +28,9 @@ describe('AppController', () => {
   jest.mock('./modules/users/schemas/user.schems.ts');
 
   beforeEach(async () => {
+
+    process.env = OLD_ENV;
+
     const userModel = {
       username: 'mohsaeeed',
       password: '12344321',
@@ -59,11 +65,14 @@ describe('AppController', () => {
   });
 
   describe('app', () => {
+
     it('should defind login', () => {
+      process.env = OLD_ENV;
       expect(appController.login(null)).toBeTruthy();
     });
 
     it('should defind getProfile', () => {
+      process.env = OLD_ENV;
       expect(appController.getProfile({user: true})).toBeTruthy();
     });
 
