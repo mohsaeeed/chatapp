@@ -13,13 +13,13 @@ import * as fs from 'fs';
 
 describe('AuthService', () => {
   let service: AuthService;
-  let jwt: JwtService;
+  /* let jwt: JwtService;
   jest.mock('./../../modules/users/schemas/user.schems.ts');
 
-  jest.mock('fs');
+  jest.mock('fs'); */
 
   beforeEach(async () => {
-    const userModel = {
+    /* const userModel = {
       username: 'mohsaeeed',
       password: '12344321',
       name: {
@@ -27,7 +27,7 @@ describe('AuthService', () => {
         last: 'Abdelrahman',
       },
       email: 'moh.saeeed@gmail.com',
-    };
+    };*/
     const module: TestingModule = await Test.createTestingModule({
       imports: [
         UsersModule,
@@ -42,10 +42,10 @@ describe('AuthService', () => {
           provide: getModelToken('User'),
           useValue: userModel,
         }],
-    }).compile();
+    }).compile(); // */
 
     service = module.get<AuthService>(AuthService);
-    jwt = module.get<JwtService>(JwtService);
+    //jwt = module.get<JwtService>(JwtService);
   });
 
   it('should be defined', () => {
