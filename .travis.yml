@@ -1,18 +1,18 @@
 language: node_js
 node_js: 12
-
-before_install: 
-  - cd server-nest
-  - npm i -g npm@latest
-
+before_install:
+- cd server-nest
+- npm i -g npm@latest
 install:
-  - npm install
-  - npm run build
-
+- npm install
+- npm run build
 jobs:
   include:
-    - state: "Test"
-  name: "Unit Test Node 12"
+  - state: Test
+  name: Unit Test Node 12
   script: npm test
   node_js: 12
   after_success: npm run coverage
+env:
+  matrix:
+    secure: HzKIB5qCuuxoP4PfQlLsn4OiH6AkMAKiv/VisCePcgQmlTXZcitMc+CMm3KNiAbccrgN+6M8m+VwLmUaUKxJ4DGMqWd/J5qpN+Ns0D/i5OLPrqntAZYOq32I3c/CRiYD6MCFg3sSPK4sMQRPHHCe8AdTCfEsLf3y1YBihwk9eQqxHwZYQOFUG5RjL2K0XJ9HgfzitNRb8vcsi6cjMHqfa6CN1HcJK20yP7q0R4WrjXOAANbUQYFyocU2Zu38J2ah7iUBnZAGVasOHnHL9aW7C7xT5W/caI2uTpw+dm/vI7yPS/Svt+griC5DUzl0VdEObCsFJMNWxJ0ymcplPJi5JHBCDK+0p0lEkIXEZ3NrG+zSwE1GqMyiHGsQivpTcHoqsYMQ8E6BrYzG6Ioqf2zdDErxctOt1Gn2KQc3mkLM66CnirgCdjO7cCUgXy0slLxjnS4dJfRZPaZywCiJAb4wSJuFSBht5gL9YnFm98V0TdmtMAGo8c0JwdUi3Pt3khrRAE/DZNRPaCuecTDOyjGRDr/WS+k7FRB2RChCaS0S4fp3VYZvaU8hi9o1v9ItIBAakbR7dSfnS+fx+XJLRj8wJZ6HXkXTEYl9JkxrTNENeO1ugflEH3kI4+8odtMvLMT2EnlH0w+qNaQM2d6jucLWJWEPlLA7m/AWb1x0nKAhJcE=
