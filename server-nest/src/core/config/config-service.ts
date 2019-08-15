@@ -13,7 +13,11 @@ export class ConfigService implements MongooseOptionsFactory {
 
     constructor(filePath: string) {
         const config = dotenv.parse(fs.readFileSync(filePath));
-        this.envConfig = this.validateInput(config);
+        this.envConfig = this.initValidation(config);
+    }
+
+    initValidation(config) {
+        return this.validateInput(config);
     }
 
     private validateInput(envConfig: EnvConfig): EnvConfig {

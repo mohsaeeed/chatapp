@@ -5,7 +5,7 @@ import { Module } from '@nestjs/common';
     providers: [
         {
             provide: ConfigService,
-            useValue: new ConfigService(`${process.env.NODE_ENV}.env`),
+            useValue: new ConfigService(`environments/${process.env.NODE_ENV}.env`),
         },
     ],
     exports: [ConfigService],

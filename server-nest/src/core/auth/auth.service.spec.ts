@@ -1,3 +1,4 @@
+import { ConfigService } from './../config/config-service';
 import { AppModule } from './../../app.module';
 import { JwtService, JwtModule } from '@nestjs/jwt';
 import { UsersModule } from './../../modules/users/users.module';
@@ -9,7 +10,10 @@ import { LocalStrategy } from './local.strategy';
 import { jwtConstants } from './constants';
 import { PassportModule } from '@nestjs/passport';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
+import { MongooseOptionsFactory, MongooseModuleOptions } from '@nestjs/mongoose';
 import * as fs from 'fs';
+
+jest.mock('./../config/config-service');
 
 const MOCK_FILE = {
   test: '',
@@ -27,11 +31,12 @@ describe('AuthService', () => {
 
   let service: AuthService;
   let jwt: JwtService;
+  let configService: ConfigService;
 
   beforeEach(async () => {
 
     jest.resetModules();
-    process.env = {...OLD_ENV};
+    process.env = { ...OLD_ENV };
     delete process.env.NODE_ENV;
 
     const userModel = {
@@ -61,6 +66,10 @@ describe('AuthService', () => {
 
     service = module.get<AuthService>(AuthService);
     jwt = module.get<JwtService>(JwtService);
+    configService = module.get<ConfigService>(ConfigService);
+    configService.initValidation = jest.fn().mockImplementation(() => {
+      return Object.assign(process.env, { API_AUTH_ENABLED: 'true' });
+    });
   });
 
   afterEach(() => {
@@ -68,26 +77,18 @@ describe('AuthService', () => {
   });
 
   it('should be defined', () => {
-    process.env.NODE_ENV = 'test';
-    process.env.API_AUTH_ENABLED = 'true';
     expect(service).toBeDefined();
   });
 
   it('validateUser should be defind', () => {
-    process.env.NODE_ENV = 'test';
-    process.env.API_AUTH_ENABLED = 'true';
     expect(service.validateUser).toBeDefined();
   });
 
   it('should return a null value for non-valid users', async () => {
-    process.env.NODE_ENV = 'test';
-    process.env.API_AUTH_ENABLED = 'true';
     expect(await service.validateUser('mohsaeeed', '12345678')).toBeNull();
   });
 
   it('should return a user object for valid users', async () => {
-    process.env.NODE_ENV = 'test';
-    process.env.API_AUTH_ENABLED = 'true';
 
     const mockUser = {
       username: 'mohsaeeed',
@@ -105,14 +106,10 @@ describe('AuthService', () => {
   });
 
   it('should defind login', async () => {
-    process.env.NODE_ENV = 'test';
-    process.env.API_AUTH_ENABLED = 'true';
     expect(service.login).toBeTruthy();
   });
 
   it('should return a token object', async () => {
-    process.env.NODE_ENV = 'test';
-    process.env.API_AUTH_ENABLED = 'true';
     const user = { username: 'mohsaeeed', userid: '1' };
     const token = await service.login(user);
     expect(token).toHaveProperty('access_token');
