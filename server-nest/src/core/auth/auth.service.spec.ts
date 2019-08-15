@@ -56,9 +56,9 @@ describe('AuthService', () => {
     expect(service.validateUser).toBeDefined();
   });
 
-  it('should return a null value for non-valid users', async () => {
+  /* it('should return a null value for non-valid users', async () => {
     expect(await service.validateUser('mohsaeeed', '12345678')).toBeNull();
-  });
+  }); */
 
 /*   it('should return a user object for valid users', async () => {
 
