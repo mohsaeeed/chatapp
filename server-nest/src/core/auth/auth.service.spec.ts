@@ -9,11 +9,14 @@ import { LocalStrategy } from './local.strategy';
 import { jwtConstants } from './constants';
 import { PassportModule } from '@nestjs/passport';
 import { getModelToken, MongooseModule } from '@nestjs/mongoose';
+import * as fs from 'fs';
 
 describe('AuthService', () => {
   let service: AuthService;
   let jwt: JwtService;
   jest.mock('./../../modules/users/schemas/user.schems.ts');
+
+  jest.mock('fs');
 
   beforeEach(async () => {
     const userModel = {
